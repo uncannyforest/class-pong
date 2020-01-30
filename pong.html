@@ -3,23 +3,30 @@
     <title>Pong!</title>
     <script>
 
-var run = function() {
+var leftY = 20;
+var rightY = 20;
+
+var draw = function() {
   var canvas = document.getElementById("game");
   var ctx = canvas.getContext("2d");
-  ctx.fillStyle = "red";
-  ctx.fillRect(0, 0, 600, 400);
 
   ctx.fillStyle = "black";
-  ctx.fillText("The teacher was here", 10, 20);
+  ctx.fillRect(0, 0, 600, 400);
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(20, leftY, 5, 50);
+  ctx.fillRect(575, rightY, 5, 50);
 };
 
 var keypress = function(e) {
-  if (e.keyCode == 38 || e.keyCode == 40) {
-    alert(e.keyCode);
+  if (e.keyCode == 38) {
+    leftY = leftY - 20;
+  } else if (e.keyCode == 40) {
+    leftY = leftY + 20;
   }
 };
 
-setInterval(run, 20);
+setInterval(draw, 20);
 
 window.addEventListener("keydown",keypress,false);
 
@@ -27,7 +34,7 @@ window.addEventListener("keydown",keypress,false);
   </head>
   <body onload="run()">
 
-    <canvas id=game width=600 height=400></canvas>
+    <canvas id=game width=600 height=400 style="display: block; margin: auto;"></canvas>
 
   </body>
 </html>
