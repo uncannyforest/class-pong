@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Pong!</title>
+    <script>
+
+var run = function() {
+  var canvas = document.getElementById("game");
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = "red";
+  ctx.fillRect(0, 0, 600, 400);
+
+  ctx.fillStyle = "black";
+  ctx.fillText("The teacher was here", 10, 20);
+};
+
+var keypress = function(e) {
+  if (e.keyCode == 38 || e.keyCode == 40) {
+    alert(e.keyCode);
+  }
+};
+
+setInterval(run, 20);
+
+window.addEventListener("keydown",keypress,false);
+
+    </script>
+  </head>
+  <body onload="run()">
+
+    <canvas id=game width=600 height=400></canvas>
+
+  </body>
+</html>
