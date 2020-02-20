@@ -3,25 +3,27 @@
     <title>Pong!</title>
     <script>
 
-var leftY = 20;
-var rightY = 20;
+var leftY = 20; // top edge of left paddle
+var rightY = 20; // top edge of right paddle
+var gameHeight = 400;
+var paddleHeight = 50;
 
 var draw = function() {
   var canvas = document.getElementById("game");
   var ctx = canvas.getContext("2d");
 
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, 600, 400);
+  ctx.fillRect(0, 0, 600, gameHeight);
 
   ctx.fillStyle = "white";
-  ctx.fillRect(20, leftY, 5, 50);
-  ctx.fillRect(575, rightY, 5, 50);
+  ctx.fillRect(20, leftY, 5, paddleHeight);
+  ctx.fillRect(575, rightY, 5, paddleHeight);
 };
 
 var keypress = function(e) {
-  if (e.keyCode == 38) {
-    rightY = rightY - 20;
-  } else if (e.keyCode == 40) {
+  if (e.keyCode == 38 && rightY > 0) {
+      rightY = rightY - 20;
+  } else if (e.keyCode == 40 && rightY < gameHeight - paddleHeight) {
     rightY = rightY + 20;
   }
 };
