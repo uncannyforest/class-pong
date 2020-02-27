@@ -7,6 +7,11 @@ var leftY = 20; // top edge of left paddle
 var rightY = 20; // top edge of right paddle
 var gameHeight = 400;
 var paddleHeight = 50;
+var ballX = 200;
+var ballY = 200;
+var ballRadius = 5;
+var ballDir = 30; // in degrees, beteen 0 and 360
+var ballSpeed = 10;
 
 var draw = function() {
   var canvas = document.getElementById("game");
@@ -18,13 +23,20 @@ var draw = function() {
   ctx.fillStyle = "white";
   ctx.fillRect(20, leftY, 5, paddleHeight);
   ctx.fillRect(575, rightY, 5, paddleHeight);
+
+  ballY -= ballSpeed * Math.sin(ballDir * Math.PI / 180);
+  ballX += ballSpeed * Math.sin(ballDir * Math.PI / 180);
+
+  ctx.beginPath();
+  ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
+  ctx.fill();
 };
 
 var keypress = function(e) {
   if (e.keyCode == 38 && rightY > 0) {
-      rightY = rightY - 20;
+    rightY -= 20;
   } else if (e.keyCode == 40 && rightY < gameHeight - paddleHeight) {
-    rightY = rightY + 20;
+    rightY += 20;
   }
 };
 
