@@ -10,7 +10,7 @@ var paddleHeight = 50;
 var ballX = 200;
 var ballY = 200;
 var ballRadius = 5;
-var ballDir = 30; // in degrees, beteen 0 and 360
+var ballDir = 80; // in degrees, beteen 0 and 360
 var ballSpeed = 10;
 
 var draw = function() {
@@ -25,7 +25,11 @@ var draw = function() {
   ctx.fillRect(575, rightY, 5, paddleHeight);
 
   ballY -= ballSpeed * Math.sin(ballDir * Math.PI / 180);
-  ballX += ballSpeed * Math.sin(ballDir * Math.PI / 180);
+  ballX += ballSpeed * Math.cos(ballDir * Math.PI / 180);
+
+  if (ballY <= 0 || ballY >= gameHeight) {
+    ballDir = 360 - ballDir;
+  }
 
   ctx.beginPath();
   ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
