@@ -5,13 +5,15 @@
 
 var leftY = 20; // top edge of left paddle
 var rightY = 20; // top edge of right paddle
+var leftPaddleX = 25; // the side the ball hits
+var rightPaddleX = 575;
 var gameHeight = 400;
-var paddleHeight = 50;
+var paddleHeight = 100;
 var ballX = 200;
 var ballY = 200;
 var ballRadius = 5;
-var ballDir = 80; // in degrees, beteen 0 and 360
-var ballSpeed = 10;
+var ballDir = 60; // in degrees, beteen 0 and 360
+var ballSpeed = 5;
 
 var draw = function() {
   var canvas = document.getElementById("game");
@@ -21,14 +23,31 @@ var draw = function() {
   ctx.fillRect(0, 0, 600, gameHeight);
 
   ctx.fillStyle = "white";
-  ctx.fillRect(20, leftY, 5, paddleHeight);
-  ctx.fillRect(575, rightY, 5, paddleHeight);
+  ctx.fillRect(leftPaddleX - 5, leftY, 5, paddleHeight);
+  ctx.fillRect(rightPaddleX, rightY, 5, paddleHeight);
 
   ballY -= ballSpeed * Math.sin(ballDir * Math.PI / 180);
   ballX += ballSpeed * Math.cos(ballDir * Math.PI / 180);
 
+  // bounce off top and bottom
   if (ballY <= 0 || ballY >= gameHeight) {
     ballDir = 360 - ballDir;
+  }
+
+  // bounce off right paddle
+  if (ballX >= rightPaddleX && ballY >= rightY && ballY <= rightY + paddleHeight) {
+    ballDir = 180 - ballDir;
+    if (ballDir < 0) {
+        ballDir += 360;
+    }
+  }
+
+  // bounce off left paddle
+  if (ballX <= leftPaddleX && ballY >= leftY && ballY <= leftY + paddleHeight) {
+    ballDir = 180 - ballDir;
+    if (ballDir < 0) {
+        ballDir += 360;
+    }
   }
 
   ctx.beginPath();
