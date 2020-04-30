@@ -17,6 +17,8 @@ var ballDir = 60; // in degrees, beteen 0 and 360
 var ballSpeed = 5;
 
 var draw = function() {
+  moveComputerPaddle();
+
   var canvas = document.getElementById("game");
   var ctx = canvas.getContext("2d");
 
@@ -71,9 +73,22 @@ var keypress = function(e) {
   }
 };
 
+var moveComputerPaddle = function() {
+  if (shouldMoveComputerPaddleUp() && leftY > 0) {
+    leftY -= 20;
+  } else if (shouldMoveComputerPaddleDown() && leftY < gameHeight - paddleHeight) {
+    leftY += 20;
+  }
+};
+
+// NOT WORKING YET
+var shouldMoveComputerPaddleUp = function() {
+  // leftY = ballY - paddleHeight / 2;
+};
+
 var resetBall = function() {
-  ballX = Math.random() * gameWidth;
-  ballY = Math.random() * gameWidth;
+  ballX = gameWidth / 2;
+  ballY = gameHeight / 2;
   ballDir = Math.random() * 360;
 };
 
