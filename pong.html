@@ -8,6 +8,7 @@ var rightY = 20; // top edge of right paddle
 var leftPaddleX = 25; // the side the ball hits
 var rightPaddleX = 575;
 var gameHeight = 400;
+var gameWidth = 600;
 var paddleHeight = 100;
 var ballX = 200;
 var ballY = 200;
@@ -20,7 +21,7 @@ var draw = function() {
   var ctx = canvas.getContext("2d");
 
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, 600, gameHeight);
+  ctx.fillRect(0, 0, gameWidth, gameHeight);
 
   ctx.fillStyle = "white";
   ctx.fillRect(leftPaddleX - 5, leftY, 5, paddleHeight);
@@ -34,6 +35,14 @@ var draw = function() {
     ballDir = 360 - ballDir;
   }
 
+  if (ballX <= 0) {
+    alert("Hit the left wall");
+    resetBall();
+  } else if (ballX >= gameWidth) {
+    alert("Hit the right wall");
+    resetBall();
+  }
+
   // bounce off right paddle
   if (ballX >= rightPaddleX && ballY >= rightY && ballY <= rightY + paddleHeight) {
     ballDir = 180 - ballDir;
@@ -41,9 +50,8 @@ var draw = function() {
         ballDir += 360;
     }
   }
-
   // bounce off left paddle
-  if (ballX <= leftPaddleX && ballY >= leftY && ballY <= leftY + paddleHeight) {
+  else if (ballX <= leftPaddleX && ballY >= leftY && ballY <= leftY + paddleHeight) {
     ballDir = 180 - ballDir;
     if (ballDir < 0) {
         ballDir += 360;
@@ -61,6 +69,12 @@ var keypress = function(e) {
   } else if (e.keyCode == 40 && rightY < gameHeight - paddleHeight) {
     rightY += 20;
   }
+};
+
+var resetBall = function() {
+  ballX = Math.random() * gameWidth;
+  ballY = Math.random() * gameWidth;
+  ballDir = Math.random() * 360;
 };
 
 setInterval(draw, 20);
