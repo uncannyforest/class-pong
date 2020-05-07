@@ -66,9 +66,9 @@ var draw = function() {
 };
 
 var keypress = function(e) {
-  if (e.keyCode == 38 && rightY > 0) {
+  if (e.keyCode === 38 && rightY > 0) {
     rightY -= 20;
-  } else if (e.keyCode == 40 && rightY < gameHeight - paddleHeight) {
+  } else if (e.keyCode === 40 && rightY < gameHeight - paddleHeight) {
     rightY += 20;
   }
 };
@@ -81,9 +81,12 @@ var moveComputerPaddle = function() {
   }
 };
 
-// NOT WORKING YET
 var shouldMoveComputerPaddleUp = function() {
-  // leftY = ballY - paddleHeight / 2;
+  return leftY + paddleHeight / 2 > ballY;
+};
+
+var shouldMoveComputerPaddleDown = function() {
+  return leftY + paddleHeight / 2 < ballY;
 };
 
 var resetBall = function() {
