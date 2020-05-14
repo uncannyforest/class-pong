@@ -15,6 +15,7 @@ var ballY = 200;
 var ballRadius = 5;
 var ballDir = 60; // in degrees, beteen 0 and 360
 var ballSpeed = 5;
+var computerMoveSpeed = 2;
 
 var draw = function() {
   moveComputerPaddle();
@@ -77,18 +78,18 @@ var keypress = function(e) {
 
 var moveComputerPaddle = function() {
   if (shouldMoveComputerPaddleUp() && leftY > 0) {
-    leftY -= 20;
+    leftY -= computerMoveSpeed;
   } else if (shouldMoveComputerPaddleDown() && leftY < gameHeight - paddleHeight) {
-    leftY += 20;
+    leftY += computerMoveSpeed;
   }
 };
 
 var shouldMoveComputerPaddleUp = function() {
-  return leftY + paddleHeight / 2 > ballY;
+  return leftY + paddleHeight / 2 > ballY + computerMoveSpeed;
 };
 
 var shouldMoveComputerPaddleDown = function() {
-  return leftY + paddleHeight / 2 < ballY;
+  return leftY + paddleHeight / 2 < ballY - computerMoveSpeed;
 };
 
 var resetBall = function() {
