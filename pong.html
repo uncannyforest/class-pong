@@ -37,26 +37,28 @@ var draw = function() {
     ballDir = 360 - ballDir;
   }
 
-  if (ballX <= 0) {
-    alert("Hit the left wall");
-    resetBall();
-  } else if (ballX >= gameWidth) {
-    alert("Hit the right wall");
-    resetBall();
-  }
-
-  // bounce off right paddle
-  if (ballX >= rightPaddleX && ballY >= rightY && ballY <= rightY + paddleHeight) {
-    ballDir = 180 - ballDir;
-    if (ballDir < 0) {
-        ballDir += 360;
+  // right side
+  if (ballX >= rightPaddleX) {
+    if (ballY >= rightY && ballY <= rightY + paddleHeight) {
+      ballDir = 180 - ballDir;
+      if (ballDir < 0) {
+          ballDir += 360;
+      }
+    } else {
+      alert("Hit the right wall");
+      resetBall();
     }
   }
-  // bounce off left paddle
-  else if (ballX <= leftPaddleX && ballY >= leftY && ballY <= leftY + paddleHeight) {
-    ballDir = 180 - ballDir;
-    if (ballDir < 0) {
-        ballDir += 360;
+  // left side
+  else if (ballX <= leftPaddleX) {
+    if (ballY >= leftY && ballY <= leftY + paddleHeight) {
+      ballDir = 180 - ballDir;
+      if (ballDir < 0) {
+          ballDir += 360;
+      }
+    } else {
+      alert("Hit the left wall");
+      resetBall();
     }
   }
 
